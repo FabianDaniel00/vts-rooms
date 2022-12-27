@@ -1,12 +1,31 @@
 import rooms from './rooms.js';
 
+const TIMEOUT_TTL = 1000 * 60; // 1 minute
+
 const inputForm = document.getElementById('input-form')
 const input = document.getElementById('input');
+const resetButton = document.getElementById('reset');
 const floorParagraph = document.getElementById('floor');
 const roomParagraph = document.getElementById('room');
 const floorCanvas = document.getElementById('floor-canvas');
 const floorCanvasContext = floorCanvas.getContext('2d');
 let interval = null;
+let timeout = null;
+
+const reset = () => {
+  clearTimeout(timeout);
+  clearInterval(interval);
+
+  floorCanvasContext.canvas.width = 0;
+  floorCanvasContext.canvas.height = 0;
+
+  floorParagraph.innerHTML = 'Floor: -';
+  roomParagraph.innerHTML = 'Room: -';
+};
+
+resetButton.onclick = () => {
+  reset();
+};
 
 inputForm.onsubmit = (formSubmitEvent) => {
   formSubmitEvent.preventDefault();
@@ -18,7 +37,8 @@ inputForm.onsubmit = (formSubmitEvent) => {
     return alert('This room not found!');
   }
 
-  clearInterval(interval);
+  reset();
+
   const { floor: roomFloor, path: roomPath } = room;
   const floorImageSrc = `./floors/floor_${roomFloor}.png`;
   const floorImage = new Image();
@@ -73,6 +93,7 @@ inputForm.onsubmit = (formSubmitEvent) => {
       }
     }
 
+    timeout = setTimeout(reset, TIMEOUT_TTL);
     interval = setInterval(draw, 15);
   };
   floorImage.src = floorImageSrc;
