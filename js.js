@@ -2,9 +2,7 @@ import rooms from './rooms.js';
 
 const TIMEOUT_TTL = 1000 * 60; // 1 minute
 
-const inputForm = document.getElementById('input-form')
 const input = document.getElementById('input');
-const resetButton = document.getElementById('reset');
 const floorParagraph = document.getElementById('floor');
 const roomParagraph = document.getElementById('room');
 const floorCanvas = document.getElementById('floor-canvas');
@@ -23,11 +21,11 @@ const reset = () => {
   roomParagraph.innerHTML = 'Room: -';
 };
 
-resetButton.onclick = () => {
+document.getElementById('reset').onclick = () => {
   reset();
 };
 
-inputForm.onsubmit = (formSubmitEvent) => {
+document.getElementById('input-form').onsubmit = (formSubmitEvent) => {
   formSubmitEvent.preventDefault();
 
   const room = rooms.find((room) => String(room.id) === input.value.toLowerCase());
