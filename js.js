@@ -1,6 +1,8 @@
 import rooms from './rooms.js';
 
 const TIMEOUT_TTL = 1000 * 60; // 1 minute
+const FRAME_PER_SECOND = 60;
+const STEP_PER_FRAME = 1;
 
 const input = document.getElementById('input');
 const floorParagraph = document.getElementById('floor');
@@ -73,17 +75,16 @@ document.getElementById('input-form').onsubmit = (formSubmitEvent) => {
       floorCanvasContext.arc(roomPathX, roomPathY, 5, 0, 2 * Math.PI);
       floorCanvasContext.fill();
 
-      if (roomPathX < roomPath[roomPathIndex + 1].x) {
-        roomPathX += 1;
-      } else if (roomPathY < roomPath[roomPathIndex + 1].y) {
-        roomPathY += 1;
-      } else if (roomPathX > roomPath[roomPathIndex + 1].x) {
-        roomPathX -= 1;
-      } else if (roomPathY > roomPath[roomPathIndex + 1].y) {
-        roomPathY -= 1;
+      if (roomPathX < roomPath[roomPathIndex + STEP_PER_FRAME].x) {
+        roomPathX += STEP_PER_FRAME;
+      } else if (roomPathY < roomPath[roomPathIndex + STEP_PER_FRAME].y) {
+        roomPathY += STEP_PER_FRAME;
+      } else if (roomPathX > roomPath[roomPathIndex + STEP_PER_FRAME].x) {
+        roomPathX -= STEP_PER_FRAME;
+      } else if (roomPathY > roomPath[roomPathIndex + STEP_PER_FRAME].y) {
+        roomPathY -= STEP_PER_FRAME;
       } else {
-        roomPathIndex++;
-        if (roomPathIndex >= roomPath.length - 1) {
+        if (++roomPathIndex >= roomPath.length - 1) {
           roomPathIndex = 0;
           roomPathX = roomPath[0].x;
           roomPathY = roomPath[0].y;
@@ -92,7 +93,7 @@ document.getElementById('input-form').onsubmit = (formSubmitEvent) => {
     }
 
     timeout = setTimeout(reset, TIMEOUT_TTL);
-    interval = setInterval(draw, 15);
+    interval = setInterval(draw, Math.round(1000 / FRAME_PER_SECOND));
   };
   floorImage.src = floorImageSrc;
 };
