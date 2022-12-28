@@ -1,8 +1,7 @@
 import rooms from './rooms.js';
 
-const TIMEOUT_TTL = 1000 * 60; // 1 minute
+const TIMEOUT_TTL = 10; // in seconds
 const FRAME_PER_SECOND = 60;
-const STEP_PER_FRAME = 1;
 
 const input = document.getElementById('input');
 const floorParagraph = document.getElementById('floor');
@@ -11,6 +10,8 @@ const floorCanvas = document.getElementById('floor-canvas');
 const floorCanvasContext = floorCanvas.getContext('2d');
 let interval = null;
 let timeout = null;
+
+input.focus();
 
 const reset = () => {
   clearTimeout(timeout);
@@ -21,6 +22,9 @@ const reset = () => {
 
   floorParagraph.innerHTML = 'Floor: -';
   roomParagraph.innerHTML = 'Room: -';
+
+  input.value = '';
+  input.focus();
 };
 
 document.getElementById('reset').onclick = () => {
@@ -30,14 +34,16 @@ document.getElementById('reset').onclick = () => {
 document.getElementById('input-form').onsubmit = (formSubmitEvent) => {
   formSubmitEvent.preventDefault();
 
+  input.focus();
+
   const room = rooms.find((room) => String(room.id) === input.value.toLowerCase());
 
   if (!room) {
-    input.focus();
     return alert('This room not found!');
   }
 
-  reset();
+  clearTimeout(timeout);
+  clearInterval(interval);
 
   const { floor: roomFloor, path: roomPath } = room;
   const floorImageSrc = `./floors/floor_${roomFloor}.png`;
@@ -75,14 +81,14 @@ document.getElementById('input-form').onsubmit = (formSubmitEvent) => {
       floorCanvasContext.arc(roomPathX, roomPathY, 5, 0, 2 * Math.PI);
       floorCanvasContext.fill();
 
-      if (roomPathX < roomPath[roomPathIndex + STEP_PER_FRAME].x) {
-        roomPathX += STEP_PER_FRAME;
-      } else if (roomPathY < roomPath[roomPathIndex + STEP_PER_FRAME].y) {
-        roomPathY += STEP_PER_FRAME;
-      } else if (roomPathX > roomPath[roomPathIndex + STEP_PER_FRAME].x) {
-        roomPathX -= STEP_PER_FRAME;
-      } else if (roomPathY > roomPath[roomPathIndex + STEP_PER_FRAME].y) {
-        roomPathY -= STEP_PER_FRAME;
+      if (roomPathX < roomPath[roomPathIndex + 1].x) {
+        roomPathX += 1;
+      } else if (roomPathY < roomPath[roomPathIndex + 1].y) {
+        roomPathY += 1;
+      } else if (roomPathX > roomPath[roomPathIndex + 1].x) {
+        roomPathX -= 1;
+      } else if (roomPathY > roomPath[roomPathIndex + 1].y) {
+        roomPathY -= 1;
       } else {
         if (++roomPathIndex >= roomPath.length - 1) {
           roomPathIndex = 0;
@@ -92,7 +98,7 @@ document.getElementById('input-form').onsubmit = (formSubmitEvent) => {
       }
     }
 
-    timeout = setTimeout(reset, TIMEOUT_TTL);
+    timeout = setTimeout(reset, 1000 * TIMEOUT_TTL);
     interval = setInterval(draw, Math.round(1000 / FRAME_PER_SECOND));
   };
   floorImage.src = floorImageSrc;
