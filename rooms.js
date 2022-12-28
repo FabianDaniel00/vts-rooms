@@ -1,4 +1,4 @@
-const floorGroundStartingPoint = { x: 235, y: 145 };
+const groundFloorStartingPoint = { x: 235, y: 145 };
 const floor1StartingPath = [
   { x: 235, y: 110 },
   { x: 235, y: 135 },
@@ -19,9 +19,9 @@ const floor4StartingPath = [
 export default [
   {
     id: 'a0',
-    floor: 'ground',
+    floor: 'ground_floor',
     path: [
-      { ...floorGroundStartingPoint },
+      groundFloorStartingPoint,
       { x: 135, y: 145 },
       { x: 135, y: 125 },
       { x: 115, y: 125 },
@@ -29,18 +29,18 @@ export default [
   },
   {
     id: 1,
-    floor: 'ground',
+    floor: 'ground_floor',
     path: [
-      { ...floorGroundStartingPoint },
+      groundFloorStartingPoint,
       { x: 190, y: 145 },
       { x: 190, y: 115 },
     ]
   },
   {
     id: 6,
-    floor: 'ground',
+    floor: 'ground_floor',
     path: [
-      { ...floorGroundStartingPoint },
+      groundFloorStartingPoint,
       { x: 230, y: 145 },
       { x: 230, y: 120 },
       { x: 300, y: 120 },
@@ -49,9 +49,9 @@ export default [
   },
   {
     id: 8,
-    floor: 'ground',
+    floor: 'ground_floor',
     path: [
-      { ...floorGroundStartingPoint },
+      groundFloorStartingPoint,
       { x: 230, y: 145 },
       { x: 230, y: 120 },
       { x: 340, y: 120 },
@@ -60,9 +60,9 @@ export default [
   },
   {
     id: 10,
-    floor: 'ground',
+    floor: 'ground_floor',
     path: [
-      { ...floorGroundStartingPoint },
+      groundFloorStartingPoint,
       { x: 230, y: 145 },
       { x: 230, y: 120 },
       { x: 380, y: 120 },
@@ -71,9 +71,9 @@ export default [
   },
   {
     id: 12,
-    floor: 'ground',
+    floor: 'ground_floor',
     path: [
-      { ...floorGroundStartingPoint },
+      groundFloorStartingPoint,
       { x: 230, y: 145 },
       { x: 230, y: 120 },
       { x: 390, y: 120 },
@@ -82,9 +82,9 @@ export default [
   },
   {
     id: 14,
-    floor: 'ground',
+    floor: 'ground_floor',
     path: [
-      { ...floorGroundStartingPoint },
+      groundFloorStartingPoint,
       { x: 230, y: 145 },
       { x: 230, y: 120 },
       { x: 360, y: 120 },
@@ -93,9 +93,9 @@ export default [
   },
   {
     id: 16,
-    floor: 'ground',
+    floor: 'ground_floor',
     path: [
-      { ...floorGroundStartingPoint },
+      groundFloorStartingPoint,
       { x: 230, y: 145 },
       { x: 230, y: 120 },
       { x: 325, y: 120 },
@@ -104,9 +104,9 @@ export default [
   },
   {
     id: 18,
-    floor: 'ground',
+    floor: 'ground_floor',
     path: [
-      { ...floorGroundStartingPoint },
+      groundFloorStartingPoint,
       { x: 230, y: 145 },
       { x: 230, y: 120 },
       { x: 295, y: 120 },

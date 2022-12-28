@@ -49,8 +49,8 @@ document.getElementById('input-form').onsubmit = (formSubmitEvent) => {
   const floorImageSrc = `./floors/floor_${roomFloor}.png`;
   const floorImage = new Image();
 
-  floorParagraph.innerHTML = `Floor: ${roomFloor}`;
-  roomParagraph.innerHTML = `Room: ${room.id}`;
+  floorParagraph.innerHTML = `Floor: ${String(roomFloor).replace('_', ' ')}`;
+  roomParagraph.innerHTML = `Room: ${String(room.id).toUpperCase()}`;
 
   floorCanvas.style.backgroundImage = `url(${floorImageSrc})`;
 
